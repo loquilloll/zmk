@@ -166,7 +166,7 @@ jobs:
             const fs = require('fs');
             const yaml = require('js-yaml');
 
-            const coreCoverage = yaml.load(fs.readFileSync('app/core-coverage.yml', 'utf8'));
+            const coreCoverage = yaml.load(fs.readFileSync('app/ergos1-coverage.yml', 'utf8'));
             
             let include = coreCoverage.board.flatMap(board =>
               coreCoverage.shield.map(shield => ({ board, shield }))
