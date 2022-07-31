@@ -3,14 +3,18 @@ board:
 # - nrfmicro_13
 # - proton_c
 shield:
- - ergo1_oe_left
- - ergo1_oe_right
+ - ergos1_oe_left
+ - ergos1_oe_right
 # - corne_left
 # - corne_right
 # - romac
 # - settings_reset
 # - tidbit
-# include:
+include:
+- board: nice_nano_v2
+  shield: ergos1_oe_left
+- board: nice_nano_v2
+  shield: ergos1_oe_right
 # - board: bdn9_rev2
 # - board: nice60
 # - board: nrf52840_m2
