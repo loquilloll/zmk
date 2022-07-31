@@ -1,6 +1,7 @@
 name: Build
 
 on:
+  workflow_dispath:
   push:
     paths:
       - ".github/workflows/build.yml"
