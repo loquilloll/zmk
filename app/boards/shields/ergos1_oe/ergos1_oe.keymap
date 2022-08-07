@@ -24,7 +24,6 @@
 #define RG_SEMI   am RGUI SEMI
 
 #define LT1_ESC lt 1 ESC
-#define LT1_BST lt 1 bstab
 
 / {
     behaviors {
@@ -80,7 +79,7 @@
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤ ╭─────────┬─────────┬────────╮ ╭─────────┬──────────┬─────────╮ ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
      &kp LSHFT  &kp Z   &kp X    &kp C    &kp V         &kp B              &kp CAPS  &kp LGUI   &kp RALT   &kp RCTRL             &kp N    &kp M   &kp COMMA  &kp PERIOD &kp SLASH &mt RSHIFT BSPC
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤ ├─────────┤─────────┤────────┤ ├─────────┤──────────┤─────────┤ ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
-                &trans  &trans   &trans   &kp LEFT_GUI           &kp ENTER &lt 1 ESC   &kp HOME   &kp PG_UP  &lt 1 bstab   &kp SPACE             &trans  &trans     &trans     &trans
+                &trans  &trans   &trans   &kp LEFT_GUI           &kp ENTER &lt 1 ESC   &kp HOME   &kp PG_UP  &lt_bspc   &kp SPACE             &trans  &trans     &trans     &trans
 // ╰──────────┴───────┴────────┴────────┴─────────────┴───────╯                     ├────────┤ ├─────────┤                      ╰────────┴───────┴─────────┴───────────┴─────────┴────────────────╯
                                                                                      &kp LALT   &kp DEL
 //                                                              ╰─────────┴─────────┴────────╯ ╰─────────┴──────────┴─────────╯
