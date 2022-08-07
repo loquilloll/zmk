@@ -117,15 +117,13 @@ jobs:
         with:
           script: |
             const coreCoverage = `${{ needs.core-coverage.outputs.core-include }}` || "[]";
-            //const boardChanges = `${{ needs.board-changes.outputs.boards-include }}` || "[]";
-            const boardChanges = [{"board":"nice_nano_v2","shield":"ergo_s1_oe_left"},
-                                 {"board":"nice_nano_v2","shield":"ergo_s1_oe_right"}] || "[]";
+            const boardChanges = `${{ needs.board-changes.outputs.boards-include }}` || "[]";
             const nightly = `${{ needs.nightly.outputs.nightly-include }}` || "[]";
             
             const combined = [
               ...JSON.parse(coreCoverage),
-              ...JSON.parse(boardChanges),
-              ...JSON.parse(nightly)
+              //...JSON.parse(boardChanges),
+              //...JSON.parse(nightly)
             ];
             const combinedUnique = [...new Map(combined.map(el => [JSON.stringify(el), el])).values()];
 
