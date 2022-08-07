@@ -104,6 +104,7 @@ jobs:
             if (error) {
               throw new Error('Failed to build one or more configurations');
             }
+  
   compile-matrix:
     if: ${{ always() }}
     runs-on: ubuntu-latest
@@ -145,8 +146,9 @@ jobs:
               board,
               shieldArgs: JSON.stringify(shieldArgs),
             }));
+
   core-coverage:
-    if: ${{ needs.get-changed-files.outputs.core-changes == 'true' }}
+    # if: ${{ needs.get-changed-files.outputs.core-changes == 'true' }}
     runs-on: ubuntu-latest
     # needs: get-changed-files
     outputs:
@@ -174,132 +176,135 @@ jobs:
             );
 
             return [...include, ...coreCoverage.include];
-  board-changes:
-    if: ${{ needs.get-changed-files.outputs.board-changes == 'true' }}
-    runs-on: ubuntu-latest
-    needs: [get-grouped-hardware, get-changed-files]
-    outputs:
-      boards-include: ${{ steps.boards-list.outputs.result }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14.x'
-      - name: Install js-yaml
-        run: npm install js-yaml
-      - uses: actions/github-script@v4
-        id: boards-list
-        with:
-          script: |
-            const fs = require('fs');
-            const yaml = require('js-yaml');
 
-            const changedFiles = JSON.parse(`${{ needs.get-changed-files.outputs.changed-files }}`);
-            const metadata = JSON.parse(`${{ needs.get-grouped-hardware.outputs.organized-metadata }}`);
-            const boardChanges = new Set(changedFiles.filter(f => f.startsWith('app/boards')).map(f => f.split('/').slice(0, 4).join('/')));
+  # board-changes:
+  #   if: ${{ needs.get-changed-files.outputs.board-changes == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   needs: [get-grouped-hardware, get-changed-files]
+  #   outputs:
+  #     boards-include: ${{ steps.boards-list.outputs.result }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Use Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '14.x'
+  #     - name: Install js-yaml
+  #       run: npm install js-yaml
+  #     - uses: actions/github-script@v4
+  #       id: boards-list
+  #       with:
+  #         script: |
+  #           const fs = require('fs');
+  #           const yaml = require('js-yaml');
 
-            return (await Promise.all([...boardChanges].flatMap(async bc => {
-              const globber = await glob.create(bc + "/*.zmk.yml");
-              const files = await globber.glob();
+  #           const changedFiles = JSON.parse(`${{ needs.get-changed-files.outputs.changed-files }}`);
+  #           const metadata = JSON.parse(`${{ needs.get-grouped-hardware.outputs.organized-metadata }}`);
+  #           const boardChanges = new Set(changedFiles.filter(f => f.startsWith('app/boards')).map(f => f.split('/').slice(0, 4).join('/')));
 
-              const aggregated = files.flatMap((f) =>
-                yaml.loadAll(fs.readFileSync(f, "utf8"))
-              );
+  #           return (await Promise.all([...boardChanges].flatMap(async bc => {
+  #             const globber = await glob.create(bc + "/*.zmk.yml");
+  #             const files = await globber.glob();
 
-              const boardAndShield = (b, s) => {
-                if (s.siblings) {
-                  return s.siblings.map(shield => ({
-                    board: b.id,
-                    shield,
-                  }));
-                } else {
-                  return {
-                    board: b.id,
-                    shield: s.id
-                  };
-                }
-              }
+  #             const aggregated = files.flatMap((f) =>
+  #               yaml.loadAll(fs.readFileSync(f, "utf8"))
+  #             );
 
-              return aggregated.flatMap(hm => {
-                switch (hm.type) {
-                  case "board":
-                    if (hm.features && hm.features.includes("keys")) {
-                      if (hm.siblings) {
-                        return hm.siblings.map(board => ({
-                          board,
-                        }));
-                      } else {
-                        return {
-                          board: hm.id
-                        };
-                      }
-                    } else if (hm.exposes) {
-                      return hm.exposes.flatMap(i => 
-                        metadata.interconnects[i].shields.flatMap(s => boardAndShield(hm, s))
-                      );
-                    } else {
-                      console.error("Board without keys or interconnect");
-                    }
-                    break;
-                  case "shield":
-                    if (hm.features && hm.features.includes("keys")) {
-                      return hm.requires.flatMap(i => 
-                        metadata.interconnects[i].boards.flatMap(b => boardAndShield(b, hm))
-                      );
-                    }
-                    break;
-                  case "interconnect":
-                    return [];
-                }
-              });
-            }))).flat();
-  nightly:
-    if: ${{ github.event_name == 'schedule' }}
-    runs-on: ubuntu-latest
-    needs: get-grouped-hardware
-    outputs:
-      nightly-include: ${{ steps.nightly-list.outputs.result }}
-    steps:
-      - name: Create nightly list
-        uses: actions/github-script@v4
-        id: nightly-list
-        with:
-          script: |
-            const metadata = JSON.parse(`${{ needs.get-grouped-hardware.outputs.organized-metadata }}`);
+  #             const boardAndShield = (b, s) => {
+  #               if (s.siblings) {
+  #                 return s.siblings.map(shield => ({
+  #                   board: b.id,
+  #                   shield,
+  #                 }));
+  #               } else {
+  #                 return {
+  #                   board: b.id,
+  #                   shield: s.id
+  #                 };
+  #               }
+  #             }
+
+  #             return aggregated.flatMap(hm => {
+  #               switch (hm.type) {
+  #                 case "board":
+  #                   if (hm.features && hm.features.includes("keys")) {
+  #                     if (hm.siblings) {
+  #                       return hm.siblings.map(board => ({
+  #                         board,
+  #                       }));
+  #                     } else {
+  #                       return {
+  #                         board: hm.id
+  #                       };
+  #                     }
+  #                   } else if (hm.exposes) {
+  #                     return hm.exposes.flatMap(i => 
+  #                       metadata.interconnects[i].shields.flatMap(s => boardAndShield(hm, s))
+  #                     );
+  #                   } else {
+  #                     console.error("Board without keys or interconnect");
+  #                   }
+  #                   break;
+  #                 case "shield":
+  #                   if (hm.features && hm.features.includes("keys")) {
+  #                     return hm.requires.flatMap(i => 
+  #                       metadata.interconnects[i].boards.flatMap(b => boardAndShield(b, hm))
+  #                     );
+  #                   }
+  #                   break;
+  #                 case "interconnect":
+  #                   return [];
+  #               }
+  #             });
+  #           }))).flat();
+  
+  # nightly:
+  #   if: ${{ github.event_name == 'schedule' }}
+  #   runs-on: ubuntu-latest
+  #   needs: get-grouped-hardware
+  #   outputs:
+  #     nightly-include: ${{ steps.nightly-list.outputs.result }}
+  #   steps:
+  #     - name: Create nightly list
+  #       uses: actions/github-script@v4
+  #       id: nightly-list
+  #       with:
+  #         script: |
+  #           const metadata = JSON.parse(`${{ needs.get-grouped-hardware.outputs.organized-metadata }}`);
             
-            let includeOnboard = metadata.onboard.flatMap(b => {
-              if (b.siblings) {
-                return b.siblings.map(board => ({
-                  board,
-                }));
-              } else {
-                return {
-                  board: b.id,
-                };
-              }
-            });
+  #           let includeOnboard = metadata.onboard.flatMap(b => {
+  #             if (b.siblings) {
+  #               return b.siblings.map(board => ({
+  #                 board,
+  #               }));
+  #             } else {
+  #               return {
+  #                 board: b.id,
+  #               };
+  #             }
+  #           });
 
-            let includeInterconnect = Object.values(metadata.interconnects).flatMap(i =>
-              i.boards.flatMap(b =>
-                i.shields.flatMap(s => {
-                  if (s.siblings) {
-                    return s.siblings.map(shield => ({
-                      board: b.id,
-                      shield,
-                    }));
-                  } else {
-                    return {
-                      board: b.id,
-                      shield: s.id,
-                    };
-                  }
-                })
-              )
-            );
+  #           let includeInterconnect = Object.values(metadata.interconnects).flatMap(i =>
+  #             i.boards.flatMap(b =>
+  #               i.shields.flatMap(s => {
+  #                 if (s.siblings) {
+  #                   return s.siblings.map(shield => ({
+  #                     board: b.id,
+  #                     shield,
+  #                   }));
+  #                 } else {
+  #                   return {
+  #                     board: b.id,
+  #                     shield: s.id,
+  #                   };
+  #                 }
+  #               })
+  #             )
+  #           );
 
-            return [...includeOnboard, ...includeInterconnect];
+  #           return [...includeOnboard, ...includeInterconnect];
+
   get-grouped-hardware:
     runs-on: ubuntu-latest
     outputs:
@@ -377,6 +382,7 @@ jobs:
 
             return JSON.stringify(grouped).replace(/\\/g,"\\\\");
           result-encoding: string
+
   get-changed-files:
     if: ${{ github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
