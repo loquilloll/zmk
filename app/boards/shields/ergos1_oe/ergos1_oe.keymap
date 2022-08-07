@@ -13,7 +13,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define LCTL_KESC &mt LCTRL ESC
+#define LCTL_ESC  &mt LCTRL ESC
 #define LGUI_KA   &am LGUI A
 #define LALT_KS   &am LALT S
 #define LCTL_KD   &am LCTRL D
@@ -76,7 +76,7 @@
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤                                                                 ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
      &kp TAB    &kp Q   &kp W    &kp E    &kp R         &kp T                                                                     &kp Y    &kp U   &kp I     &kp O       &kp P     &kp BACKSLASH
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤                                                                 ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
-     LCTL_KESC  LGUI_K  LALT_KS  LCTL_KD  LSFT_KF       &kp G                                                                     &kp H   RSFT_KJ  RCTL_KK   RALT_KL    RG_SEMI   &kp SINGLE_QUOTE
+     LCTL_ESC  LGUI_KA  LALT_KS  LCTL_KD  LSFT_KF       &kp G                                                                     &kp H   RSFT_KJ  RCTL_KK   RALT_KL    RG_SEMI   &kp SINGLE_QUOTE
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤ ╭─────────┬─────────┬────────╮ ╭─────────┬──────────┬─────────╮ ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
      &kp LSHFT  &kp Z   &kp X    &kp C    &kp V         &kp B              &kp CAPS  &kp LGUI   &kp RALT   &kp RCTRL             &kp N    &kp M   &kp COMMA  &kp PERIOD &kp SLASH &mt RSHIFT BSPC
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤ ├─────────┤─────────┤────────┤ ├─────────┤──────────┤─────────┤ ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
