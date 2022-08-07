@@ -24,7 +24,7 @@
 #define RG_SEMI   am RGUI SEMI
 
 #define LT1_ESC lt 1 ESC
-#define LT1_BST lt 1 BSPC_TAB
+#define LT1_BST lt 1 bstab
 
 / {
     behaviors {
