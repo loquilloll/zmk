@@ -13,18 +13,18 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define LCTL_ESC  &mt LCTRL ESC
-#define LGUI_KA   &am LGUI A
-#define LALT_KS   &am LALT S
-#define LCTL_KD   &am LCTRL D
-#define LSFT_KF   &as LSHFT F
-#define RSFT_KJ   &as RSHFT J
-#define RCTL_KK   &am RCTRL K
-#define RALT_KL   &am RALT L
-#define RG_SEMI   &am RGUI SEMI
+#define LCTL_ESC  mt LCTRL ESC
+#define LGUI_KA   am LGUI A
+#define LALT_KS   am LALT S
+#define LCTL_KD   am LCTRL D
+#define LSFT_KF   as LSHFT F
+#define RSFT_KJ   as RSHFT J
+#define RCTL_KK   am RCTRL K
+#define RALT_KL   am RALT L
+#define RG_SEMI   am RGUI SEMI
 
-#define LT1_ESC &lt 1 ESC
-#define LT1_BST &lt 1 BSPC_TAB
+#define LT1_ESC lt 1 ESC
+#define LT1_BST lt 1 BSPC_TAB
 
 / {
     behaviors {
@@ -76,11 +76,11 @@
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤                                                                 ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
      &kp TAB    &kp Q   &kp W    &kp E    &kp R         &kp T                                                                     &kp Y    &kp U   &kp I     &kp O       &kp P     &kp BACKSLASH
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤                                                                 ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
-     LCTL_ESC  LGUI_KA  LALT_KS  LCTL_KD  LSFT_KF       &kp G                                                                     &kp H   RSFT_KJ  RCTL_KK   RALT_KL    RG_SEMI   &kp SINGLE_QUOTE
+     &LCTL_ESC  &LGUI_KA  &LALT_KS  &LCTL_KD  &LSFT_KF       &kp G                                                                     &kp H   &RSFT_KJ  &RCTL_KK   &RALT_KL    &RG_SEMI   &kp SINGLE_QUOTE
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤ ╭─────────┬─────────┬────────╮ ╭─────────┬──────────┬─────────╮ ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
      &kp LSHFT  &kp Z   &kp X    &kp C    &kp V         &kp B              &kp CAPS  &kp LGUI   &kp RALT   &kp RCTRL             &kp N    &kp M   &kp COMMA  &kp PERIOD &kp SLASH &mt RSHIFT BSPC
 // ├──────────┼───────┼────────┼────────┼─────────────┤───────┤ ├─────────┤─────────┤────────┤ ├─────────┤──────────┤─────────┤ ├────────┼───────┼─────────┼───────────┼─────────┤────────────────┤
-                &trans  &trans   &trans   &kp LEFT_GUI           &kp ENTER LT1_ESC   &kp HOME   &kp PG_UP  LT1_BST   &kp SPACE             &trans  &trans     &trans     &trans
+                &trans  &trans   &trans   &kp LEFT_GUI           &kp ENTER &LT1_ESC   &kp HOME   &kp PG_UP  &LT1_BST   &kp SPACE             &trans  &trans     &trans     &trans
 // ╰──────────┴───────┴────────┴────────┴─────────────┴───────╯                     ├────────┤ ├─────────┤                      ╰────────┴───────┴─────────┴───────────┴─────────┴────────────────╯
                                                                                      &kp LALT   &kp DEL
 //                                                              ╰─────────┴─────────┴────────╯ ╰─────────┴──────────┴─────────╯
