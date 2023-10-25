@@ -5,8 +5,8 @@ board:
 shield:
   - ergos1_oe_left
   - ergos1_oe_right
-  - ergos1_oe_alt_left
-  - ergos1_oe_alt_right
+  # - ergos1_oe_alt_left
+  # - ergos1_oe_alt_right
 # - corne_left
 # - corne_right
 # - romac
