@@ -1,5 +1,5 @@
 file_format: "1"
-id: ergos1_oe
+id: ergos1_oe_alt
 name: Ergo S-1 OE
 type: shield
 url: https://github.com/wizarddata/Ergo-S-1
@@ -7,5 +7,5 @@ requires: [pro_micro]
 features:
   - keys
 siblings:
-  - ergo_s1_oe_left
-  - ergo_s1_oe_right
+  - ergo_s1_oe_alt_left
+  - ergo_s1_oe_alt_right
