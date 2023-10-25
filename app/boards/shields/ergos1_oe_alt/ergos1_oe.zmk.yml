@@ -7,5 +7,5 @@ requires: [pro_micro]
 features:
   - keys
 siblings:
-  - ergo_s1_oe_alt_left
-  - ergo_s1_oe_alt_right
+  - ergo_s1_oe_left
+  - ergo_s1_oe_right
